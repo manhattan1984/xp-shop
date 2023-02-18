@@ -18,7 +18,7 @@ export default function Home() {
     <div className="">
       <section className="flex flex-col justify-center items-center h-screen gap-4 text-center">
         <div className="relative h-60 w-60">
-          <Image fill={true} src="/xp_logo.png" />
+          <Image alt="" fill={true} src="/xp_logo.png" />
         </div>
         <p className="font-labrada_italic text-2xl">Xquiste Craftmanship</p>
         <p className="text-5xl font-labrada">
