@@ -2,7 +2,9 @@ import "./globals.css";
 import Header from "./(components)/Header";
 import Footer from "./(components)/Footer";
 import Cart from "./(components)/Cart";
+import Menu from "./(components)/Menu";
 import CartContext from "./(context)/CartContext";
+import MenuContext from "./(context)/MenuContext";
 import localFont from "@next/font/local";
 // import { Labra } from "@next/font/google";
 
@@ -22,6 +24,16 @@ const labradaItalic = localFont({
   variable: "--font-labrada-italic",
 });
 
+const links = [
+  { name: "home", link: "/" },
+  { name: "shop all", link: "/products" },
+  { name: "apparel", link: "/" },
+  { name: "plushies", link: "/" },
+  { name: "accessories", link: "/" },
+  { name: "footwear", link: "/" },
+  { name: "mystery items", link: "/" },
+];
+
 export default function RootLayout({
   children,
 }: {
@@ -38,12 +50,15 @@ export default function RootLayout({
       */}
       <head />
       <body className="dark:bg-black dark:text-white font-labrada">
-        <CartContext>
-          <Header />
-          <Cart />
-          {children}
-          <Footer />
-        </CartContext>
+        <MenuContext>
+          <CartContext>
+            <Header />
+            <Cart />
+            <Menu links={links} />
+            {children}
+            <Footer />
+          </CartContext>
+        </MenuContext>
       </body>
     </html>
   );

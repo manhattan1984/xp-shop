@@ -1,5 +1,6 @@
 import Image from "next/image";
 import CarouselImage from "./(components)/CarouselImage";
+import ProductList from "./(components)/ProductList";
 import { clothes } from "./(data)/cartitems";
 
 export default function Home() {
@@ -19,7 +20,7 @@ export default function Home() {
   return (
     <div className="">
       <section className="flex flex-col justify-center items-center h-screen gap-4 text-center">
-        <div className="relative h-60 w-60">
+        <div className="relative h-60 w-60 -z-10">
           <Image alt="" fill={true} src="/xp_logo.png" />
         </div>
         <p className="font-labrada_italic text-2xl">Xquiste Craftmanship</p>
@@ -29,28 +30,17 @@ export default function Home() {
         </p>
       </section>
       <section className="">
-        <div className="flex items-center gap-4  justify-center transform-gpu animate-slide_through">
-          {images.map((image, key) => (
-            <CarouselImage key={key} src={image} />
-          ))}
+        <div className=" w-full overflow-hidden h-full box-content">
+          <div className="inline-flex gap-4 animate-slide_through text-black">
+            {images.map((image, index) => (
+              <CarouselImage src={image} key={index} />
+            ))}
+          </div>
         </div>
       </section>
       <section className="h-full w-full bg-white text-black">
         <div className="flex flex-wrap p-2 gap-6 justify-center w-full uppercase">
-          {clothes.map(({ src, name, price }) => (
-            <div key={name} className="text-center w-full basis-1/3">
-              <Image
-                alt={name}
-                height={0}
-                width={0}
-                sizes="100%"
-                className="w-full h-auto"
-                src={src}
-              />
-              <p className="font-light tracking-widest text-sm">{name}</p>
-              <p className="text-sm text-gray-500">${price}</p>
-            </div>
-          ))}
+          <ProductList products={clothes} />
         </div>
       </section>
     </div>

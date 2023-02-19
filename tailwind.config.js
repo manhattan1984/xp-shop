@@ -14,11 +14,9 @@ module.exports = {
       },
       keyframes: {
         slideThrough: {
-          "0%": { transform: "translateX(50%)" },
-          // '50%': {transform : 'translateX(20%)'},
-          "50%": { transform: "translateX(0px)" },
-          
-          "100%": { transform: "translateX(-50%)" },
+          "0%": { transform: "translateX(0)", visibility: "visible" },
+
+          "100%": { transform: "translateX(-100%)" },
         },
       },
       animation: {

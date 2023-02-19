@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import AllProducts from "./AllProducts";
 
 const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+  return <AllProducts />;
+};
 
-export default page
+export default page;

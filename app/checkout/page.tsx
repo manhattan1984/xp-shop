@@ -1,7 +1,8 @@
 import React from "react";
+import Checkout from "./Checkout";
 
 const page = () => {
-  return <div>page</div>;
+  return <Checkout />;
 };
 
 export default page;

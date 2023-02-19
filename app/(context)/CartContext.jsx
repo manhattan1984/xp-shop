@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
+import { clothes } from "../(data)/cartitems";
 
 const CartContext = createContext();
 
@@ -66,6 +67,12 @@ const CartProvider = ({ children }) => {
 
   function getTotalCost() {
     let totalCost = 0;
+    cartProducts.map((cartItem) => {
+      const item = clothes.find((item) => item.id === cartItem.id);
+      totalCost += item.price * cartItem.quantity;
+      setTotal(totalCost);
+      console.log("total Cost", total);
+    });
 
     return totalCost;
   }

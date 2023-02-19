@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 import { useCart } from "../(context)/CartContext";
@@ -47,14 +48,14 @@ const CartItem = ({ id, quantity }) => {
           {name}
         </Link>
         <div className="flex mt-2 text-center font-medium w-1/2">
-          <button onClick={() => removeOneFromCart(id)} className="border w-full">
+          <button
+            onClick={() => removeOneFromCart(id)}
+            className="border w-full"
+          >
             -
           </button>
           <p className="border w-full">{quantity}</p>
-          <button
-            onClick={() => addOneToCart(id)}
-            className="border w-full"
-          >
+          <button onClick={() => addOneToCart(id)} className="border w-full">
             +
           </button>
         </div>
@@ -71,31 +72,35 @@ const CartItem = ({ id, quantity }) => {
 };
 
 const Cart = () => {
-  const { open, setOpen, cartProducts } = useCart();
-  function handleOpen() {
-    return () => {
-      setOpen(!open);
-    };
-  }
+  const { open, setOpen, cartProducts, total, getTotalCost } = useCart();
+  const router = useRouter();
+
   let recommendations = clothes.sort(() => 0.5 - Math.random()).slice(0, 3);
 
   useEffect(() => {
-    console.log(cartProducts);
+    getTotalCost();
   }, [cartProducts]);
 
   return (
     <div
-      onClick={handleOpen}
       className={`ease-in-out duration-300 ${
         open ? "" : "translate-x-full"
-      }  z-30 h-screen w-screen backdrop-brightness-50 flex fixed items-center justify-end`}
+      }  z-20 h-screen w-screen flex fixed items-center justify-end`}
     >
-      <div className="h-[98%] w-4/5 bg-white rounded-md m-2 p-2  text-black">
+      <div
+        onClick={() => {
+          setOpen(false);
+        }}
+        className="absolute left-0 h-screen w-screen backdrop-brightness-50 z-20"
+      />
+      <div className="absolute h-[99%] w-4/5 bg-white rounded-md m-2 p-2  text-black z-30">
         <div className="flex items-center uppercase border-b p-2 border-gray-300">
           <p className="flex-1 text-center text-sm">Your Cart</p>
           <AiOutlineClose
             className="cursor-pointer text-black text-lg"
-            onClick={handleOpen()}
+            onClick={() => {
+              setOpen(false);
+            }}
           />
         </div>
 
@@ -108,7 +113,14 @@ const Cart = () => {
               <p className="text-xs text-gray-500 mt-2 mb-4">
                 Add your favorite items to your cart.
               </p>
-              <button className="w-full bg-black text-white p-2">
+
+              <button
+                onClick={() => {
+                  router.push("/products");
+                  setOpen(false);
+                }}
+                className="w-full bg-black text-white p-2"
+              >
                 Shop Now
               </button>
             </div>
@@ -132,10 +144,20 @@ const Cart = () => {
 
         <div className="w-full p-4">
           <div className="flex justify-between font-medium">
-            <p>Subtotal ({0} item(s))</p>
-            <p>${0}</p>
+            <p>Subtotal ({cartProducts.length} item(s))</p>
+            <p>${total}</p>
           </div>
-          <button className="w-full bg-black text-white p-2">Checkout</button>
+
+          <button
+            onClick={() => {
+              setOpen(false);
+
+              router.push("/checkout");
+            }}
+            className="w-full bg-black text-white p-2"
+          >
+            Checkout
+          </button>
         </div>
       </div>
     </div>
