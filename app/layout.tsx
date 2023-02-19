@@ -1,5 +1,8 @@
 import "./globals.css";
 import Header from "./(components)/Header";
+import Footer from "./(components)/Footer";
+import Cart from "./(components)/Cart";
+import CartContext from "./(context)/CartContext";
 import localFont from "@next/font/local";
 // import { Labra } from "@next/font/google";
 
@@ -34,9 +37,13 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className="dark:bg-black dark:text-white">
-        <Header />
-        {children}
+      <body className="dark:bg-black dark:text-white font-labrada">
+        <CartContext>
+          <Header />
+          <Cart />
+          {children}
+          <Footer />
+        </CartContext>
       </body>
     </html>
   );

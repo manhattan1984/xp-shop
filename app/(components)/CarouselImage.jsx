@@ -9,7 +9,7 @@ const CarouselImage = ({src}) => {
         // fill={true}
         height={0}
         width={0}
-        sizes="20vw"
+        sizes="30vw"
         className="w-full h-auto"
         src={src}
       />
