@@ -20,12 +20,12 @@ export default function Home() {
   return (
     <div className="">
       <section className="flex flex-col justify-center items-center h-screen gap-4 text-center">
-        {/* <div className="relative  h-60 w-60 -z-10"> */}
-          {/* <Image alt="" fill={true} src="/xp_logo.png" /> */}
-          <p className="text-9xl font-gajraj text-center">XP</p>
-        {/* </div> */}
+        <div className="relative  h-60 w-60 -z-10">
+          <Image alt="" fill={true} src="/xp.png" />
+          {/* <p className="text-9xl font-gajraj text-center">XP</p> */}
+        </div>
         <p className="font-labrada_italic text-2xl">Xquiste Craftmanship</p>
-        <p className="text-5xl font-labrada">
+        <p className="text-5xl font-labrada max-w-lg">
           Luxurious <span className="font-labrada_italic font-light">and</span>{" "}
           Contemporary Style for Everyone
         </p>

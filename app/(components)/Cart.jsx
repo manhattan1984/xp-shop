@@ -85,7 +85,7 @@ const Cart = () => {
     <div
       className={`ease-in-out duration-300 ${
         open ? "" : "translate-x-full"
-      }  z-20 h-screen w-screen flex fixed items-center justify-end`}
+      }  z-20 h-screen w-screen flex fixed top-0 items-center justify-end`}
     >
       <div
         onClick={() => {
@@ -93,7 +93,7 @@ const Cart = () => {
         }}
         className="absolute left-0 h-screen w-screen backdrop-brightness-50 z-20"
       />
-      <div className="absolute h-[99%] w-4/5 bg-white rounded-md m-2 p-2  text-black z-30">
+      <div className="absolute h-[99%] w-4/5 bg-white rounded-md m-2 p-2 max-w-md text-black z-30">
         <div className="flex items-center uppercase border-b p-2 border-gray-300">
           <p className="flex-1 text-center text-sm">Your Cart</p>
           <AiOutlineClose

@@ -27,11 +27,7 @@ const labradaItalic = localFont({
 const links = [
   { name: "home", link: "/" },
   { name: "shop all", link: "/products" },
-  { name: "apparel", link: "/" },
-  { name: "plushies", link: "/" },
-  { name: "accessories", link: "/" },
-  { name: "footwear", link: "/" },
-  { name: "mystery items", link: "/" },
+ 
 ];
 
 export default function RootLayout({
@@ -52,7 +48,7 @@ export default function RootLayout({
       <body className="dark:bg-black dark:text-white font-labrada">
         <MenuContext>
           <CartContext>
-            <Header />
+            <Header links={links} />
             <Cart />
             <Menu links={links} />
             {children}

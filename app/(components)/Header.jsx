@@ -6,13 +6,13 @@ import { useCart } from "../(context)/CartContext";
 import Link from "next/link";
 import { useMenu } from "../(context)/MenuContext";
 
-const Header = () => {
+const Header = ({ links }) => {
   const { setOpen } = useCart();
   const { menuOpen, setMenuOpen } = useMenu();
   return (
     <nav className="top-0 z-20 flex justify-between p-2 fixed w-full shadow backdrop-blur-sm bg-black">
       <FiMenu
-        className="text-2xl cursor-pointer"
+        className="text-2xl cursor-pointer lg:hidden"
         onClick={() => setMenuOpen(!menuOpen)}
       />
       <Link href="/" className={"text-2xl uppercase font-gajraj"}>
@@ -22,8 +22,24 @@ const Header = () => {
         onClick={() => {
           setOpen(true);
         }}
-        className="text-2xl cursor-pointer"
+        className="text-2xl cursor-pointer lg:hidden"
       />
+      <div className="lg:flex items-center hidden">
+        <ul>
+          {links.map(({ link, name }) => (
+            <Link className="uppercase mx-4 hover:text-gray-300" href={link}>
+              {name}
+            </Link>
+          ))}
+        </ul>
+        <button
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          CART
+        </button>
+      </div>
     </nav>
   );
 };

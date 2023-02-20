@@ -4,7 +4,7 @@ import React from "react";
 
 const ProductItem = ({ name, src, price, id }) => {
   return (
-    <Link className="text-center w-full basis-1/3" href={`/products/${id}`}>
+    <Link className="text-center w-full basis-1/3 md:basis-1/4" href={`/products/${id}`}>
       <div >
         <Image
           alt={name}
