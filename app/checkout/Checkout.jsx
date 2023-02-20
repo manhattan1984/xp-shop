@@ -1,7 +1,9 @@
-import Link from "next/link";
+"use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Checkout = () => {
+  const router = useRouter();
   return (
     <div className="h-full mt-8 bg-white text-black py-8 flex items-center">
       <div className="w-4/5 mx-auto max-w-md">
