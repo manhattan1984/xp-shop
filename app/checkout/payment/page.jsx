@@ -1,9 +1,31 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import { v4 as uuidv4 } from "uuid";
 
 const page = () => {
   const router = useRouter();
+  const config = {
+    public_key: "FLWPUBK_TEST-85b6075160887da1a382cec073db16fa-X",
+    tx_ref: uuidv4(),
+    amount: 100,
+    currency: "NGN",
+    payment_options: "card,mobilemoney,ussd",
+    customer: {
+      email: "user@gmail.com",
+      phone_number: "070********",
+      name: "john doe",
+    },
+    customizations: {
+      title: "my Payment Title",
+      description: "Payment for items in cart",
+      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+    },
+  };
+
+  const handleFlutterPayment = useFlutterwave(config);
+
   return (
     <>
       <div className="border p-4">
@@ -71,12 +93,23 @@ const page = () => {
         </div>
       </fieldset>
       <button
-        onClick={() => router.push("/checkout/complete")}
+        onClick={() => {
+          handleFlutterPayment({
+            callback: (response) => {
+              console.log(response);
+              closePaymentModal(); // this will close the modal programmatically
+            },
+            onClose: () => {},
+          });
+        }}
         className="bg-black text-white p-4 w-full mt-2"
       >
         Pay Now
       </button>
-      <button onClick={() => router.push("/checkout/shipping")} className="p-4 w-full">
+      <button
+        onClick={() => router.push("/checkout/shipping")}
+        className="p-4 w-full"
+      >
         {"< Return to shipping"}
       </button>
     </>
