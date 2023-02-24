@@ -1,6 +1,6 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
-import { clothes } from "../(data)/cartitems";
+import supabase from "@/utils/supabase";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
 
@@ -8,6 +8,19 @@ const CartProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
   const [total, setTotal] = useState(0);
+  const [serverProducts, setServerProducts] = useState([]);
+
+  useEffect(() => {
+    async function getProducts() {
+      let { data: products, error } = await supabase
+        .from("products")
+        .select("*");
+      setServerProducts(products);
+    }
+
+    getProducts();
+    console.log(serverProducts);
+  }, []);
 
   function getProductQuantity(id) {
     const quantity = cartProducts.find(
@@ -68,7 +81,8 @@ const CartProvider = ({ children }) => {
   function getTotalCost() {
     let totalCost = 0;
     cartProducts.map((cartItem) => {
-      const item = clothes.find((item) => item.id === cartItem.id);
+      const item = serverProducts.find((item) => item.id === cartItem.id);
+
       totalCost += item.price * cartItem.quantity;
       setTotal(totalCost);
       console.log("total Cost", total);
@@ -89,6 +103,7 @@ const CartProvider = ({ children }) => {
         removeOneFromCart,
         deleteFromCart,
         getTotalCost,
+        serverProducts,
       }}
     >
       {children}

@@ -3,19 +3,26 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { v4 as uuidv4 } from "uuid";
+import { useCart } from "../../(context)/CartContext";
 
 const page = () => {
   const router = useRouter();
+  const { getTotalCost } = useCart();
+  const email = "mikkimanhattan@gmail.com";
+  const phone_number = "08125365368";
+  const name = "Michael Jackson";
+
+  const total = getTotalCost();
   const config = {
     public_key: "FLWPUBK_TEST-85b6075160887da1a382cec073db16fa-X",
     tx_ref: uuidv4(),
-    amount: 100,
+    amount: total,
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
     customer: {
-      email: "user@gmail.com",
-      phone_number: "070********",
-      name: "john doe",
+      email,
+      phone_number,
+      name,
     },
     customizations: {
       title: "my Payment Title",
@@ -34,7 +41,7 @@ const page = () => {
             <p className="text-gray-500">Contact</p>
             <button className="text-gray-700">Change</button>
           </div>
-          <p>mikkimanhattan@gmail.com</p>
+          <p>{email}</p>
         </div>
         <div className="h-[1px] bg-gray-200 my-4"></div>
         <div className="">
@@ -49,49 +56,10 @@ const page = () => {
           <div className="flex justify-between">
             <p className="text-gray-500">Method</p>
           </div>
-          <p>DHL eCommerce Priority - Duties and Taxes included · $23.99</p>
+          <p>DHL eCommerce Priority - Duties and Taxes included · ${total}</p>
         </div>
       </div>
-      <p className="mt-4 mb-1">Payment</p>
-      <p>All transactions are secure and encrypted.</p>
-      <div className="border ">
-        <p className="p-2">Credit card</p>
-        <div className="bg-gray-100 p-2 w-full flex flex-col gap-2">
-          <input
-            placeholder="Card number"
-            type="text"
-            className="w-full p-2 border"
-          />
-          <input
-            placeholder="Name on card"
-            type="text"
-            className="w-full p-2 border"
-          />
-          <input
-            placeholder="Expiration date (MM/YY)"
-            type="text"
-            className="w-full p-2 border"
-          />
-          <input
-            placeholder="Security Code"
-            type="text"
-            className="w-full p-2 border"
-          />
-        </div>
-      </div>
-      <p className="mt-4 mb-1">Billing Address</p>
-      <p>Select the address that matches your card or payment method.</p>
-      <fieldset className="border rounded">
-        <div className="flex p-4 items-center">
-          <input type="radio" value="shipping" name="" id="shipping" />
-          <p className="ml-2">Same as shipping address</p>
-        </div>
-        <div className="h-[1px] bg-gray-300"></div>
-        <div className="flex p-4 items-center">
-          <input type="radio" value="different" name="" id="different" />
-          <p className="ml-2">Use different address</p>
-        </div>
-      </fieldset>
+
       <button
         onClick={() => {
           handleFlutterPayment({

@@ -1,9 +1,11 @@
+"use client";
 import React from "react";
 import ProductList from "../(components)/ProductList";
-import { clothes } from "../(data)/cartitems";
+import { useCart } from "../(context)/CartContext";
 
 const AllProducts = () => {
-  return <ProductList products={clothes} />;
+  const { serverProducts } = useCart();
+  return <ProductList products={serverProducts} />;
 };
 
 export default AllProducts;

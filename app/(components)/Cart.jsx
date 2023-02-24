@@ -5,16 +5,15 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 import { useCart } from "../(context)/CartContext";
-import { clothes } from "../(data)/cartitems";
 
-const CartRecommendation = ({ name, price, src, id }) => {
+const CartRecommendation = ({ name, price, image_url, id }) => {
   const { addOneToCart } = useCart();
 
   return (
     <div className="flex justify-between w-full items-center p-4 border-b gap-4">
       <Image
         alt={name}
-        src={src}
+        src={image_url}
         height={90}
         width={90}
         // sizes={"50%"}
@@ -37,12 +36,15 @@ const CartRecommendation = ({ name, price, src, id }) => {
 };
 
 const CartItem = ({ id, quantity }) => {
-  const { addOneToCart, removeOneFromCart, deleteFromCart } = useCart();
-  const { name, price, src } = clothes.find((item) => item.id === id);
+  const { addOneToCart, removeOneFromCart, deleteFromCart, serverProducts } =
+    useCart();
+  const { name, price, image_url } = serverProducts.find(
+    (item) => item.id === id
+  );
 
   return (
     <div className="flex gap-2 justify-between p-8 border-b items-center">
-      <Image height={60} width={60} src={src} alt={name} />
+      <Image height={60} width={60} src={image_url} alt={name} />
       <div className="w-full">
         <Link href={"/"} className="underline">
           {name}
@@ -72,10 +74,13 @@ const CartItem = ({ id, quantity }) => {
 };
 
 const Cart = () => {
-  const { open, setOpen, cartProducts, total, getTotalCost } = useCart();
+  const { open, setOpen, cartProducts, total, getTotalCost, serverProducts } =
+    useCart();
   const router = useRouter();
 
-  let recommendations = clothes.sort(() => 0.5 - Math.random()).slice(0, 3);
+  let recommendations = serverProducts
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 3);
 
   useEffect(() => {
     getTotalCost();
