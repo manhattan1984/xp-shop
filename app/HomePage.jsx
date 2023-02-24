@@ -23,14 +23,15 @@ export default function HomePage() {
   return (
     <div className="">
       <section className="flex flex-col justify-center items-center h-screen gap-4 text-center">
-        <div className="relative  h-60 w-60 -z-10">
-          <Image alt="" fill={true} src="/xp.png" />
-        </div>
-        <p className="font-labrada_italic text-2xl">Xquiste Craftmanship</p>
-        <p className="text-5xl font-labrada max-w-lg">
-          Luxurious <span className="font-labrada_italic font-light">and</span>{" "}
-          Contemporary Style for Everyone
-        </p>
+        <Image
+          src="/floating-with-flacko.png"
+          sizes="100%"
+          height={0}
+          width={0}
+          className="w-1/2 h-auto animate-float transform-gpu"
+        />
+        <p className="text-2xl font-gajraj text-red-500">Floating With Flacko</p>
+        <p className="font-labrada_italic text-lg">you too can defy gravity</p>
       </section>
       <section className="">
         <div className=" w-full overflow-hidden h-full box-content">

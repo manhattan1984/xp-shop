@@ -18,9 +18,15 @@ module.exports = {
 
           "100%": { transform: "translateX(-100%)" },
         },
+        float: {
+          "0%": {transform: "translateY(-50%)"},
+          "50%": {transform: "translateY(0%)"},
+          "100%": {transform: "translateY(-50%)"},
+        }
       },
       animation: {
         slide_through: "slideThrough 20s linear infinite",
+        float: "float 10s ease-in-out infinite"
       },
     },
   },

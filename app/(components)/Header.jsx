@@ -5,6 +5,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useCart } from "../(context)/CartContext";
 import Link from "next/link";
 import { useMenu } from "../(context)/MenuContext";
+import Image from "next/image";
 
 const Header = ({ links }) => {
   const { setOpen } = useCart();
@@ -15,8 +16,11 @@ const Header = ({ links }) => {
         className="text-2xl cursor-pointer lg:hidden"
         onClick={() => setMenuOpen(!menuOpen)}
       />
-      <Link href="/" className={"text-2xl uppercase font-gajraj"}>
-        Xperience
+      <Link href="/" className={"text-md uppercase font-gajraj"}>
+        <div className="flex items-center gap-4">
+          
+          <p className="">Floating With Flacko</p>
+        </div>
       </Link>
       <AiOutlineShoppingCart
         onClick={() => {

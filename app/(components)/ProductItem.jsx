@@ -9,18 +9,13 @@ const ProductItem = ({ name, image_url, price, id }) => {
       href={`/products/${id}`}
     >
       <div>
-        <Image
-          alt={name}
-          height={0}
-          width={0}
-          sizes="100%"
-          className="w-full h-auto"
-          src={image_url}
-        />
-        <p className="font-light tracking-widest text-sm text-gray-800 font-gajraj">
+        <div className="relative h-48 w-full">
+          <Image alt={name} fill={true} src={image_url} />
+        </div>
+        <p className="font-light tracking-widest text-sm font-gajraj text-red-500">
           {name}
         </p>
-        <p className="text-sm text-gray-500">${price}</p>
+        <p className="text-sm text-gray-500">₦{price}</p>
       </div>
     </Link>
   );

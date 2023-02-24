@@ -22,7 +22,7 @@ const ProductDetail = ({ id, name, image_url, price }) => {
         />
         <div className="">
           <p className="font-light text-gray-600">${price}</p>
-          <p className="my-4 font-light text-gray-500 text-3xl font-gajraj">
+          <p className="my-4 font-light text-red-500 text-3xl font-gajraj">
             {name}
           </p>
 
