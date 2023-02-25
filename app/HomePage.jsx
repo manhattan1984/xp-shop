@@ -30,7 +30,9 @@ export default function HomePage() {
           width={0}
           className="w-1/2 h-auto animate-float transform-gpu"
         />
-        <p className="text-2xl font-gajraj text-red-500">Floating With Flacko</p>
+        <p className="text-2xl font-gajraj text-red-500">
+          Floating With Flacko
+        </p>
         <p className="font-labrada_italic text-lg">you too can defy gravity</p>
       </section>
       <section className="">
@@ -42,10 +44,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className="h-full w-full bg-white text-black">
-        <div className="flex flex-wrap p-2 gap-6 justify-center w-full uppercase">
-          <ProductList products={serverProducts} />
-        </div>
+      <section>
+        <ProductList products={serverProducts} />
       </section>
     </div>
   );

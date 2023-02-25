@@ -27,7 +27,12 @@ const labradaItalic = localFont({
 const links = [
   { name: "home", link: "/" },
   { name: "shop all", link: "/products" },
- 
+  { name: "Shirts", link: "/products/shirts" },
+  { name: "Printed Tees", link: "/products/tees" },
+  { name: "Hoodies", link: "/products/hoodies" },
+  { name: "Denims", link: "/products/denims" },
+  { name: "Tote Bags", link: "/products/tote-bags" },
+  { name: "Gallery", link: "/gallery" },
 ];
 
 export default function RootLayout({

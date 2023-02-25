@@ -19,14 +19,14 @@ module.exports = {
           "100%": { transform: "translateX(-100%)" },
         },
         float: {
-          "0%": {transform: "translateY(-50%)"},
+          "0%": {transform: "translateY(-20%)"},
           "50%": {transform: "translateY(0%)"},
-          "100%": {transform: "translateY(-50%)"},
+          "100%": {transform: "translateY(-20%)"},
         }
       },
       animation: {
         slide_through: "slideThrough 20s linear infinite",
-        float: "float 10s ease-in-out infinite"
+        float: "float 5s ease-in-out infinite"
       },
     },
   },

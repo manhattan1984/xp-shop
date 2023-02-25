@@ -6,9 +6,9 @@ const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const [cartProducts, setCartProducts] = useState([]);
+  const [cartProducts, setCartProducts] = useLocalStorage("cartProducts", []);
   const [total, setTotal] = useState(0);
-  const [serverProducts, setServerProducts] = useState([]);
+  const [serverProducts, setServerProducts] = useLocalStorage("serverProducts",[]);
 
   useEffect(() => {
     async function getProducts() {
@@ -81,7 +81,10 @@ const CartProvider = ({ children }) => {
   function getTotalCost() {
     let totalCost = 0;
     cartProducts.map((cartItem) => {
-      const item = serverProducts.find((item) => item.id === cartItem.id);
+      console.log("cart", cartProducts);
+      const item = serverProducts?.find((item) => item.id === cartItem.id);
+      console.log('server', serverProducts)
+      console.log('item', item)
 
       totalCost += item.price * cartItem.quantity;
       setTotal(totalCost);
@@ -112,5 +115,35 @@ const CartProvider = ({ children }) => {
 };
 
 export const useCart = () => useContext(CartContext);
+
+export function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    if (typeof window === "undefined") {
+      return initialValue;
+    }
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.log(error);
+      return initialValue;
+    }
+  });
+
+  const setValue = (value) => {
+    try {
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
 
 export default CartProvider;

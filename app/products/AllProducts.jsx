@@ -5,6 +5,7 @@ import { useCart } from "../(context)/CartContext";
 
 const AllProducts = () => {
   const { serverProducts } = useCart();
+  console.log(serverProducts);
   return <ProductList products={serverProducts} />;
 };
 

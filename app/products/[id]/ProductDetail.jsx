@@ -7,7 +7,7 @@ import React from "react";
 const ProductDetail = ({ id, name, image_url, price }) => {
   const { serverProducts } = useCart();
   const details = ["Hello World", "Hasta La Vista", "I'll be back"];
-  let related = serverProducts.sort(() => 0.5 - Math.random()).slice(0, 4);
+  let related = serverProducts?.slice(0, 4);
   const { addOneToCart, removeOneFromCart, setOpen } = useCart();
 
   return (

@@ -38,39 +38,41 @@ const CartRecommendation = ({ name, price, image_url, id }) => {
 const CartItem = ({ id, quantity }) => {
   const { addOneToCart, removeOneFromCart, deleteFromCart, serverProducts } =
     useCart();
-  const { name, price, image_url } = serverProducts.find(
-    (item) => item.id === id
-  );
-
-  return (
-    <div className="flex gap-2 justify-between p-8 border-b items-center">
-      <Image height={60} width={60} src={image_url} alt={name} />
-      <div className="w-full">
-        <Link href={"/"} className="underline">
-          {name}
-        </Link>
-        <div className="flex mt-2 text-center font-medium w-1/2">
-          <button
-            onClick={() => removeOneFromCart(id)}
-            className="border w-full"
-          >
-            -
-          </button>
-          <p className="border w-full">{quantity}</p>
-          <button onClick={() => addOneToCart(id)} className="border w-full">
-            +
-          </button>
+  if (serverProducts) {
+    const { name, price, image_url } = serverProducts?.find(
+      (item) => item.id === id
+    );
+    return (
+      <div className="flex gap-2 justify-between p-8 border-b items-center">
+        <Image height={60} width={60} src={image_url} alt={name} />
+        <div className="w-full">
+          <Link href={"/"} className="underline">
+            {name}
+          </Link>
+          <div className="flex mt-2 text-center font-medium w-1/2">
+            <button
+              onClick={() => removeOneFromCart(id)}
+              className="border w-full"
+            >
+              -
+            </button>
+            <p className="border w-full">{quantity}</p>
+            <button onClick={() => addOneToCart(id)} className="border w-full">
+              +
+            </button>
+          </div>
+        </div>
+        <div className="">
+          <AiOutlineDelete
+            onClick={() => deleteFromCart(id)}
+            className="cursor-pointer text-gray-500"
+          />
+          <p className="text-xs text-gray-500 mt-4">${price}</p>
         </div>
       </div>
-      <div className="">
-        <AiOutlineDelete
-          onClick={() => deleteFromCart(id)}
-          className="cursor-pointer text-gray-500"
-        />
-        <p className="text-xs text-gray-500 mt-4">${price}</p>
-      </div>
-    </div>
-  );
+    );
+  }
+  return <p>Loading...</p>;
 };
 
 const Cart = () => {
@@ -78,9 +80,7 @@ const Cart = () => {
     useCart();
   const router = useRouter();
 
-  let recommendations = serverProducts
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 3);
+  let recommendations = serverProducts?.slice(0, 3);
 
   useEffect(() => {
     getTotalCost();
@@ -140,7 +140,7 @@ const Cart = () => {
               you may also like
             </p>
             <div className="w-11/12 mx-auto">
-              {recommendations.map((item, index) => (
+              {recommendations?.map((item, index) => (
                 <CartRecommendation key={index} {...item} />
               ))}
             </div>
