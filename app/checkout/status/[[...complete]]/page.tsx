@@ -1,6 +1,14 @@
 import React from "react";
 
-const page = ({ searchParams: { status, tx_ref, transaction_id } }) => {
+const page = ({
+  searchParams: { status, tx_ref, transaction_id },
+}: {
+  searchParams: {
+    status: string;
+    tx_ref: string;
+    transaction_id: string;
+  };
+}) => {
   return (
     <div className="text-center">
       <p>{status}</p>
