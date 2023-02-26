@@ -13,8 +13,10 @@ const ProductItem = ({ name, image_url, price, id }) => {
           alt={name}
           height={0}
           width={0}
+          sizes="100vw"
           className="h-auto w-full"
           src={image_url}
+          priority={true}
         />
 
         <p className="font-light tracking-widest text-sm font-gajraj text-red-500">
