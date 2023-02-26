@@ -9,9 +9,14 @@ const ProductItem = ({ name, image_url, price, id }) => {
       href={`/products/${id}`}
     >
       <div>
-        <div className="relative h-48 w-full">
-          <Image alt={name} fill={true} src={image_url} />
-        </div>
+        <Image
+          alt={name}
+          height={0}
+          width={0}
+          className="h-auto w-full"
+          src={image_url}
+        />
+
         <p className="font-light tracking-widest text-sm font-gajraj text-red-500">
           {name}
         </p>
