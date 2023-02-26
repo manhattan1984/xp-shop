@@ -6,9 +6,9 @@ import { Toaster } from "react-hot-toast";
 import { useLocalStorage } from "../(context)/CartContext";
 
 const Layout = ({ children }) => {
-  const [cartProducts] = useLocalStorage("cartProducts", null);
+  const [cartProducts] = useLocalStorage("cartProducts", []);
 
-  if (cartProducts.length === 0) {
+  if (cartProducts === null && cartProducts.length === 0) {
     console.log(cartProducts);
     redirect("/products");
   }

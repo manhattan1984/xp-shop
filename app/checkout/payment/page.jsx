@@ -17,7 +17,7 @@ const page = () => {
     redirect("/checkout");
   }
 
-  const [cartProducts, setCartProducts] = useLocalStorage("cartProducts", null);
+  const [cartProducts, setCartProducts] = useLocalStorage("cartProducts", []);
 
   const {
     email,
