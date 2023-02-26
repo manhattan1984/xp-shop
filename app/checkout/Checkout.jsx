@@ -1,9 +1,37 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useRef, useState } from "react";
+import { toast } from "react-hot-toast";
+import { useLocalStorage } from "../(context)/CartContext";
 
 const Checkout = () => {
   const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [apartment, setApartment] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const info = {
+    email,
+    country,
+    firstName,
+    lastName,
+    address,
+    city,
+    apartment,
+    state,
+    zipcode,
+    phone,
+  };
+
+  const [userInfo, setUserInfo] = useLocalStorage("userInfo", null);
   return (
     <>
       <p className="mb-2 text-2xl">Contact Information</p>
@@ -13,6 +41,8 @@ const Checkout = () => {
         type="email"
         name=""
         id=""
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
 
       <p className="mb-2 mt-4">Shipping address</p>
@@ -22,12 +52,16 @@ const Checkout = () => {
         name=""
         id=""
         className="w-full border p-2 mt-2"
+        value={country}
+        onChange={(e) => setCountry(e.target.value)}
       />
       <input
         placeholder="First name"
         type="text"
         name=""
         id=""
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
         className="w-full border p-2 mt-2"
       />
       <input
@@ -35,20 +69,18 @@ const Checkout = () => {
         type="text"
         name=""
         id=""
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
         className="w-full border p-2 mt-2"
       />
-      <input
-        placeholder="Company (optional)"
-        type="text"
-        name=""
-        id=""
-        className="w-full border p-2 mt-2"
-      />
+
       <input
         placeholder="Address"
         type="text"
         name=""
         id=""
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
         className="w-full border p-2 mt-2"
       />
       <input
@@ -56,6 +88,8 @@ const Checkout = () => {
         type="text"
         name=""
         id=""
+        value={apartment}
+        onChange={(e) => setApartment(e.target.value)}
         className="w-full border p-2 mt-2"
       />
       <input
@@ -63,6 +97,8 @@ const Checkout = () => {
         type="text"
         name=""
         id=""
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
         className="w-full border p-2 mt-2"
       />
       <input
@@ -70,6 +106,8 @@ const Checkout = () => {
         type="text"
         name=""
         id=""
+        value={state}
+        onChange={(e) => setState(e.target.value)}
         className="w-full border p-2 mt-2"
       />
       <input
@@ -77,6 +115,8 @@ const Checkout = () => {
         type="text"
         name=""
         id=""
+        value={zipcode}
+        onChange={(e) => setZipcode(e.target.value)}
         className="w-full border p-2 mt-2"
       />
       <input
@@ -84,11 +124,21 @@ const Checkout = () => {
         type="text"
         name=""
         id=""
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
         className="w-full border p-2 mt-2"
       />
 
       <button
-        onClick={() => router.push("/checkout/shipping")}
+        onClick={() => {
+          if (Object.values(info).every((value) => value)) {
+            setUserInfo(info);
+            router.push("/checkout/shipping");
+            console.log(info);
+            return;
+          }
+          toast.error("Please Fill Form Completely");
+        }}
         className="w-full p-2 bg-black text-white mt-4"
       >
         Continue to shipping

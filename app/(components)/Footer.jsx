@@ -59,7 +59,7 @@ const Footer = () => {
       </div>
 
       <div className="lg:mt-8 pb-6 w-full text-center flex justify-center gap-2 items-center uppercase text-xs">
-        <p>@ xperience 2023</p>
+        <p>@FLOATINGWITHFLACKO 2023</p>
         <p>powered by jacksonwebdev</p>
       </div>
     </div>

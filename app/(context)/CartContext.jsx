@@ -8,7 +8,10 @@ const CartProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [cartProducts, setCartProducts] = useLocalStorage("cartProducts", []);
   const [total, setTotal] = useState(0);
-  const [serverProducts, setServerProducts] = useLocalStorage("serverProducts",[]);
+  const [serverProducts, setServerProducts] = useLocalStorage(
+    "serverProducts",
+    []
+  );
 
   useEffect(() => {
     async function getProducts() {
@@ -19,7 +22,6 @@ const CartProvider = ({ children }) => {
     }
 
     getProducts();
-    console.log(serverProducts);
   }, []);
 
   function getProductQuantity(id) {
@@ -80,16 +82,15 @@ const CartProvider = ({ children }) => {
 
   function getTotalCost() {
     let totalCost = 0;
-    cartProducts.map((cartItem) => {
-      console.log("cart", cartProducts);
-      const item = serverProducts?.find((item) => item.id === cartItem.id);
-      console.log('server', serverProducts)
-      console.log('item', item)
+    if (serverProducts) {
+      cartProducts.map((cartItem) => {
+        const item = serverProducts?.find((item) => item.id === cartItem.id);
+       
 
-      totalCost += item.price * cartItem.quantity;
-      setTotal(totalCost);
-      console.log("total Cost", total);
-    });
+        totalCost += item.price * cartItem.quantity;
+        setTotal(totalCost);
+      });
+    }
 
     return totalCost;
   }

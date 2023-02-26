@@ -1,9 +1,21 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useLocalStorage } from "@/app/(context)/CartContext";
 import React from "react";
 
 const page = () => {
   const router = useRouter();
+  const [userInfo] = useLocalStorage("userInfo", null);
+
+  if (!userInfo || !Object.values(userInfo).every((value) => value)) {
+    redirect("/checkout");
+  }
+
+  console.log("user", userInfo);
+
+  const { email, address, state, city, country, zipcode, apartment } = userInfo;
+
+  const fullAddress = `${apartment}, ${address}, ${city}, ${zipcode}, ${state}, ${country}`;
 
   return (
     <>
@@ -11,17 +23,26 @@ const page = () => {
         <div className="">
           <div className="flex justify-between">
             <p className="text-gray-500">Contact</p>
-            <button className="text-gray-700">Change</button>
+            <button
+              className="text-gray-700"
+              onClick={() => {
+                router.back();
+              }}
+            >
+              Change
+            </button>
           </div>
-          <p>mikkimanhattan@gmail.com</p>
+          <p>{email}</p>
         </div>
         <div className="h-[1px] bg-gray-200 my-4"></div>
         <div className="">
           <div className="flex justify-between">
             <p className="text-gray-500">Ship to</p>
-            <button className="text-gray-700">Change</button>
+            <button className="text-gray-700" onClick={() => router.back()}>
+              Change
+            </button>
           </div>
-          <p>55 Graffton Road, London, NW3 5EL, United Kingdom</p>
+          <p>{fullAddress}</p>
         </div>
       </div>
 
@@ -37,8 +58,8 @@ const page = () => {
 
         <div className="border p-4 mt-4">
           <div className="flex justify-between">
-            <p>DHL eCommerce Priority - Duties and Taxes included</p>
-            <p>$16.59</p>
+            <p>Courier - Duties and Taxes included</p>
+            <p>N1000</p>
           </div>
           <p className="text-sm text-gray-500">
             Total includes taxes and duties

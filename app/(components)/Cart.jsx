@@ -1,8 +1,10 @@
 "use client";
+import supabase from "@/utils/supabase";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast, Toaster } from "react-hot-toast";
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 import { useCart } from "../(context)/CartContext";
 
@@ -36,12 +38,26 @@ const CartRecommendation = ({ name, price, image_url, id }) => {
 };
 
 const CartItem = ({ id, quantity }) => {
-  const { addOneToCart, removeOneFromCart, deleteFromCart, serverProducts } =
-    useCart();
-  if (serverProducts) {
-    const { name, price, image_url } = serverProducts?.find(
-      (item) => item.id === id
-    );
+  const { addOneToCart, removeOneFromCart, deleteFromCart } = useCart();
+  const [product, setProduct] = useState();
+
+  useEffect(() => {
+    async function getProduct() {
+      let { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      setProduct(data);
+    }
+
+    getProduct();
+  }, []);
+
+  if (product) {
+    const { name, image_url, price } = product;
+
     return (
       <div className="flex gap-2 justify-between p-8 border-b items-center">
         <Image height={60} width={60} src={image_url} alt={name} />
@@ -72,100 +88,116 @@ const CartItem = ({ id, quantity }) => {
       </div>
     );
   }
-  return <p>Loading...</p>;
 };
-
 const Cart = () => {
-  const { open, setOpen, cartProducts, total, getTotalCost, serverProducts } =
-    useCart();
+  const { open, setOpen, cartProducts, total, getTotalCost } = useCart();
+
   const router = useRouter();
 
-  let recommendations = serverProducts?.slice(0, 3);
+  const [serverProducts, setServerProducts] = useState([]);
+
+  useEffect(() => {
+    async function getProducts() {
+      let { data, error } = await supabase.rpc("get_random_products", {
+        number: 3,
+      });
+
+      setServerProducts(data);
+    }
+
+    getProducts();
+  }, []);
 
   useEffect(() => {
     getTotalCost();
   }, [cartProducts]);
 
   return (
-    <div
-      className={`ease-in-out duration-300 ${
-        open ? "" : "translate-x-full"
-      }  z-20 h-screen w-screen flex fixed top-0 items-center justify-end`}
-    >
+    <>
+      <Toaster />
       <div
-        onClick={() => {
-          setOpen(false);
-        }}
-        className="absolute left-0 h-screen w-screen backdrop-brightness-50 z-20"
-      />
-      <div className="absolute h-[99%] w-4/5 bg-white rounded-md m-2 p-2 max-w-md text-black z-30">
-        <div className="flex items-center uppercase border-b p-2 border-gray-300">
-          <p className="flex-1 text-center text-sm">Your Cart</p>
-          <AiOutlineClose
-            className="cursor-pointer text-black text-lg"
-            onClick={() => {
-              setOpen(false);
-            }}
-          />
-        </div>
+        className={`ease-in-out duration-300 ${
+          open ? "" : "translate-x-full"
+        }  z-20 h-screen w-screen flex fixed top-0 items-center justify-end`}
+      >
+        <div
+          onClick={() => {
+            setOpen(false);
+          }}
+          className="absolute left-0 h-screen w-screen backdrop-brightness-50 z-20"
+        />
+        <div className="absolute h-[99%] w-4/5 bg-white rounded-md m-2 p-2 max-w-md text-black z-30">
+          <div className="flex items-center uppercase border-b p-2 border-gray-300">
+            <p className="flex-1 text-center text-sm">Your Cart</p>
+            <AiOutlineClose
+              className="cursor-pointer text-black text-lg"
+              onClick={() => {
+                setOpen(false);
+              }}
+            />
+          </div>
 
-        <div className="h-4/5 overflow-y-auto">
-          {cartProducts.length === 0 ? (
-            <div className="text-center p-8 border-b">
-              <p className="uppercase font-light tracking-wider text-gray-500">
-                Your cart is empty
-              </p>
-              <p className="text-xs text-gray-500 mt-2 mb-4">
-                Add your favorite items to your cart.
-              </p>
+          <div className="h-4/5 overflow-y-auto">
+            {cartProducts.length === 0 ? (
+              <div className="text-center p-8 border-b">
+                <p className="uppercase font-light tracking-wider text-gray-500">
+                  Your cart is empty
+                </p>
+                <p className="text-xs text-gray-500 mt-2 mb-4">
+                  Add your favorite items to your cart.
+                </p>
 
-              <button
-                onClick={() => {
-                  router.push("/products");
+                <button
+                  onClick={() => {
+                    router.push("/products");
+                    setOpen(false);
+                  }}
+                  className="w-full bg-black text-white p-2"
+                >
+                  Shop Now
+                </button>
+              </div>
+            ) : (
+              cartProducts.map((item, index) => (
+                <CartItem {...item} key={index} />
+              ))
+            )}
+
+            <div className="bg-gray-50 mt-8 h-fit w-full">
+              <p className="text-center uppercase font-light pt-8">
+                you may also like
+              </p>
+              <div className="w-11/12 mx-auto">
+                {serverProducts.map((item, index) => (
+                  <CartRecommendation key={index} {...item} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full p-4">
+            <div className="flex justify-between font-medium">
+              <p>Subtotal ({cartProducts.length} item(s))</p>
+              <p>${total}</p>
+            </div>
+
+            <button
+              onClick={() => {
+                if (cartProducts.length !== 0) {
                   setOpen(false);
-                }}
-                className="w-full bg-black text-white p-2"
-              >
-                Shop Now
-              </button>
-            </div>
-          ) : (
-            cartProducts.map((item, index) => (
-              <CartItem {...item} key={index} />
-            ))
-          )}
-
-          <div className="bg-gray-50 mt-8 h-fit w-full">
-            <p className="text-center uppercase font-light pt-8">
-              you may also like
-            </p>
-            <div className="w-11/12 mx-auto">
-              {recommendations?.map((item, index) => (
-                <CartRecommendation key={index} {...item} />
-              ))}
-            </div>
+                  router.push("/checkout");
+                  return;
+                }
+                toast("Your Cart Is Empty, Add Items To Check Out");
+              }}
+              className="w-full bg-black text-white p-2"
+            >
+              Checkout
+            </button>
           </div>
-        </div>
-
-        <div className="w-full p-4">
-          <div className="flex justify-between font-medium">
-            <p>Subtotal ({cartProducts.length} item(s))</p>
-            <p>${total}</p>
-          </div>
-
-          <button
-            onClick={() => {
-              setOpen(false);
-
-              router.push("/checkout");
-            }}
-            className="w-full bg-black text-white p-2"
-          >
-            Checkout
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
