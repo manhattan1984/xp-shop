@@ -8,14 +8,14 @@ import { toast, Toaster } from "react-hot-toast";
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 import { useCart } from "../(context)/CartContext";
 
-const CartRecommendation = ({ name, price, image_url, id }) => {
+const CartRecommendation = ({ name, price, product_image, id }) => {
   const { addOneToCart } = useCart();
 
   return (
     <div className="flex justify-between w-full items-center p-4 border-b gap-4">
       <Image
         alt={name}
-        src={image_url}
+        src={product_image}
         height={90}
         width={90}
         // sizes={"50%"}
@@ -44,10 +44,12 @@ const CartItem = ({ id, quantity }) => {
   useEffect(() => {
     async function getProduct() {
       let { data, error } = await supabase
-        .from("products")
-        .select("*")
+        .from("product_item")
+        .select("*, product (name, id)")
         .eq("id", id)
         .single();
+
+      console.log(data);
 
       setProduct(data);
     }
@@ -56,13 +58,17 @@ const CartItem = ({ id, quantity }) => {
   }, []);
 
   if (product) {
-    const { name, image_url, price } = product;
+    const {
+      product: { name, id },
+      product_image,
+      price,
+    } = product;
 
     return (
       <div className="flex gap-2 justify-between p-8 border-b items-center">
-        <Image height={60} width={60} src={image_url} alt={name} />
+        <Image height={60} width={60} src={product_image} alt={name} />
         <div className="w-full">
-          <Link href={"/"} className="underline">
+          <Link href={`/products/${id}`} className="underline">
             {name}
           </Link>
           <div className="flex mt-2 text-center font-medium w-1/2">
@@ -91,6 +97,8 @@ const CartItem = ({ id, quantity }) => {
 };
 const Cart = () => {
   const { open, setOpen, cartProducts, total, getTotalCost } = useCart();
+
+  console.log();
 
   const router = useRouter();
 
@@ -168,9 +176,9 @@ const Cart = () => {
                 you may also like
               </p>
               <div className="w-11/12 mx-auto">
-                {serverProducts.map((item, index) => (
+                {/* {serverProducts.map((item, index) => (
                   <CartRecommendation key={index} {...item} />
-                ))}
+                ))} */}
               </div>
             </div>
           </div>

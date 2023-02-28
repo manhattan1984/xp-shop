@@ -15,10 +15,11 @@ const CartProvider = ({ children }) => {
 
   useEffect(() => {
     async function getProducts() {
-      let { data: products, error } = await supabase
-        .from("products")
+      let { data: product_item, error } = await supabase
+        .from("product_item")
         .select("*");
-      setServerProducts(products);
+
+      setServerProducts(product_item);
     }
 
     getProducts();
@@ -85,7 +86,6 @@ const CartProvider = ({ children }) => {
     if (serverProducts) {
       cartProducts.map((cartItem) => {
         const item = serverProducts?.find((item) => item.id === cartItem.id);
-       
 
         totalCost += item.price * cartItem.quantity;
         setTotal(totalCost);

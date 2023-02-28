@@ -4,7 +4,7 @@ import CarouselImage from "./(components)/CarouselImage";
 import ProductList from "./(components)/ProductList";
 import { useCart } from "./(context)/CartContext";
 
-export default function HomePage() {
+export default function HomePage({ product }) {
   const images = [
     "https://images.unsplash.com/photo-1609873814058-a8928924184a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80",
     "https://images.unsplash.com/photo-1633292587737-f898a032e562?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1559&q=80",
@@ -17,8 +17,6 @@ export default function HomePage() {
     "https://images.unsplash.com/photo-1633292587737-f898a032e562?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1559&q=80",
     "https://images.unsplash.com/photo-1553728437-e15abbe95e6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80",
   ];
-
-  const { serverProducts } = useCart();
 
   return (
     <div className="">
@@ -44,8 +42,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section>
-        <ProductList products={serverProducts} />
+      <section className="bg-white text-center">
+        <p className="text-3xl text-black">Featured Clothings</p>
+        <ProductList products={product} />
       </section>
     </div>
   );

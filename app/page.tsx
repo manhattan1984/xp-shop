@@ -1,8 +1,19 @@
+import supabase from "@/utils/supabase";
 import React from "react";
 import HomePage from "./HomePage";
 
 const page = async () => {
-  return <HomePage />;
+  // let { data: product, error } = await supabase.from("product").select("*") .neq("category_id", 2);
+
+  let { data: product, error } = await supabase
+    .from("product")
+    .select(
+      `name, product_image, id`)
+    .neq("category_id", 2);
+
+  console.log(product);
+
+  return <HomePage product={product} />;
 };
 
 export default page;
