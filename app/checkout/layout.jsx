@@ -9,9 +9,11 @@ const Layout = ({ children }) => {
   const [cartProducts] = useLocalStorage("cartProducts", []);
 
   if (cartProducts === null && cartProducts.length === 0) {
-    console.log(cartProducts);
+
     redirect("/products");
   }
+
+  
   return (
     <>
       <Toaster />

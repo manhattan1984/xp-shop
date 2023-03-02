@@ -22,12 +22,12 @@ const ProductDetail = ({ product, variation_options }) => {
   const handleVariantChange = (e) => {
     const variant = +e.target.value;
 
-    console.log(product_item);
+
     const { price, id } = product_item.find(
       ({ variation_option_id }) => variation_option_id === variant
     );
-    console.log(+variantRef.current.value);
-    console.log(id);
+
+
 
     setPrice(price);
     setProductItemId(id);
@@ -75,6 +75,7 @@ const ProductDetail = ({ product, variation_options }) => {
             <button
               onClick={() => {
                 if (productItemId) {
+
                   addOneToCart(productItemId);
                   setOpen(true);
                   return;

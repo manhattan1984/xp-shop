@@ -6,17 +6,18 @@ import { useLocalStorage } from "../(context)/CartContext";
 
 const Checkout = () => {
   const router = useRouter();
+  const [userInfo, setUserInfo] = useLocalStorage("userInfo", null);
 
-  const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [apartment, setApartment] = useState("");
-  const [state, setState] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState(userInfo?.email);
+  const [country, setCountry] = useState(userInfo?.country);
+  const [firstName, setFirstName] = useState(userInfo?.firstName);
+  const [lastName, setLastName] = useState(userInfo?.lastName);
+  const [address, setAddress] = useState(userInfo?.address);
+  const [city, setCity] = useState(userInfo?.city);
+  const [apartment, setApartment] = useState(userInfo?.apartment);
+  const [state, setState] = useState(userInfo?.state);
+  const [zipcode, setZipcode] = useState(userInfo?.zipcode);
+  const [phone, setPhone] = useState(userInfo?.phone);
 
   const info = {
     email,
@@ -31,7 +32,6 @@ const Checkout = () => {
     phone,
   };
 
-  const [userInfo, setUserInfo] = useLocalStorage("userInfo", null);
   return (
     <>
       <p className="mb-2 text-2xl">Contact Information</p>
@@ -134,7 +134,7 @@ const Checkout = () => {
           if (Object.values(info).every((value) => value)) {
             setUserInfo(info);
             router.push("/checkout/shipping");
-            console.log(info);
+
             return;
           }
           toast.error("Please Fill Form Completely");

@@ -8,6 +8,7 @@ const CartProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [cartProducts, setCartProducts] = useLocalStorage("cartProducts", []);
   const [total, setTotal] = useState(0);
+  const [shippingCost, setShippingCost] = useLocalStorage("shippingCost", 0);
   const [serverProducts, setServerProducts] = useLocalStorage(
     "serverProducts",
     []
@@ -85,7 +86,7 @@ const CartProvider = ({ children }) => {
     let totalCost = 0;
     if (serverProducts) {
       cartProducts.map((cartItem) => {
-        const item = serverProducts?.find((item) => item.id === cartItem.id);
+        const item = serverProducts?.find(({ id }) => id === cartItem.id);
 
         totalCost += item.price * cartItem.quantity;
         setTotal(totalCost);
@@ -107,6 +108,8 @@ const CartProvider = ({ children }) => {
         removeOneFromCart,
         deleteFromCart,
         getTotalCost,
+        shippingCost,
+        setShippingCost,
         serverProducts,
       }}
     >
@@ -126,7 +129,7 @@ export function useLocalStorage(key, initialValue) {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.log(error);
+      console.log("localstorage", error);
       return initialValue;
     }
   });
@@ -140,7 +143,7 @@ export function useLocalStorage(key, initialValue) {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      console.log(error);
+      console.log("localstorage", error);
     }
   };
 

@@ -11,7 +11,7 @@ const page = async () => {
       `name, product_image, id`)
     .neq("category_id", 2);
 
-  console.log(product);
+
 
   return <HomePage product={product} />;
 };

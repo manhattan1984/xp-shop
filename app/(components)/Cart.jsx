@@ -45,11 +45,9 @@ const CartItem = ({ id, quantity }) => {
     async function getProduct() {
       let { data, error } = await supabase
         .from("product_item")
-        .select("*, product (name, id)")
+        .select("*, product (name, id), variation_option_id (value)")
         .eq("id", id)
         .single();
-
-      console.log(data);
 
       setProduct(data);
     }
@@ -59,18 +57,24 @@ const CartItem = ({ id, quantity }) => {
 
   if (product) {
     const {
-      product: { name, id },
+      product: { name, id: product_id },
       product_image,
       price,
+      variation_option_id: { value: size },
     } = product;
 
     return (
       <div className="flex gap-2 justify-between p-8 border-b items-center">
         <Image height={60} width={60} src={product_image} alt={name} />
         <div className="w-full">
-          <Link href={`/products/${id}`} className="underline">
-            {name}
-          </Link>
+          <div className="">
+            <Link href={`/products/${product_id}`} className="underline">
+              {name}
+            </Link>
+            <p className="text-xs">
+              size: <span className="uppercase">{size}</span>
+            </p>
+          </div>
           <div className="flex mt-2 text-center font-medium w-1/2">
             <button
               onClick={() => removeOneFromCart(id)}
@@ -97,8 +101,6 @@ const CartItem = ({ id, quantity }) => {
 };
 const Cart = () => {
   const { open, setOpen, cartProducts, total, getTotalCost } = useCart();
-
-  console.log();
 
   const router = useRouter();
 
@@ -186,7 +188,7 @@ const Cart = () => {
           <div className="w-full p-4">
             <div className="flex justify-between font-medium">
               <p>Subtotal ({cartProducts.length} item(s))</p>
-              <p>${total}</p>
+              <p>₦{total}</p>
             </div>
 
             <button
