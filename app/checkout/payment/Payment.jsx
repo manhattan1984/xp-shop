@@ -14,10 +14,10 @@ const Payment = ({ paymentTypes }) => {
   const [userInfo] = useLocalStorage("userInfo", null);
   const [shippingMethod] = useLocalStorage("shippingMethod", null);
 
-  console.log("user Info", userInfo);
+
 
   if (!userInfo || !Object.values(userInfo).every((value) => value)) {
-    console.log("user Info", userInfo);
+
     redirect("/checkout");
   }
 
@@ -161,6 +161,8 @@ const Payment = ({ paymentTypes }) => {
     console.log(reference);
 
     insertOrderToDatabase();
+
+    router.push("/checkout/success");
 
     // insert user payment method
   };

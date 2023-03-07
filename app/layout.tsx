@@ -6,6 +6,7 @@ import Menu from "./(components)/Menu";
 import CartContext from "./(context)/CartContext";
 import MenuContext from "./(context)/MenuContext";
 import localFont from "@next/font/local";
+import supabase from "@/utils/supabase";
 // import { Labra } from "@next/font/google";
 
 const gajraj = localFont({
@@ -24,22 +25,27 @@ const labradaItalic = localFont({
   variable: "--font-labrada-italic",
 });
 
-const links = [
-  { name: "home", link: "/" },
-  { name: "shop all", link: "/products" },
-  { name: "Shirts", link: "/products/shirts" },
-  { name: "Printed Tees", link: "/products/tees" },
-  { name: "Hoodies", link: "/products/hoodies" },
-  { name: "Denims", link: "/products/denims" },
-  { name: "Tote Bags", link: "/products/tote-bags" },
-  { name: "Gallery", link: "/gallery" },
-];
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  let { data: product_category, error } = await supabase
+    .from("product_category")
+    .select("*");
+
+  const categoryPages = product_category?.map(({ category_name }) => ({
+    name: category_name + "s",
+    link: `/products/category/${category_name}`,
+  }));
+
+  const mainLinks = [
+    { name: "home", link: "/" },
+    { name: "shop all", link: "/products" },
+  ];
+
+  const links = categoryPages ? mainLinks.concat(categoryPages) : mainLinks;
+
   return (
     <html
       lang="en"
@@ -50,14 +56,14 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className="dark:bg-black dark:text-white font-labrada">
+      <body className="font-labrada">
         <MenuContext>
           <CartContext>
             <Header links={links} />
             <Cart />
             <Menu links={links} />
-            {children}
-            <Footer />
+            <div className="mt-8">{children}</div>
+            <Footer links={links} />
           </CartContext>
         </MenuContext>
       </body>

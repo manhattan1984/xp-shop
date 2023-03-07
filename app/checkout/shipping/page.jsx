@@ -7,7 +7,7 @@ const page = async () => {
     .from("shipping_method")
     .select("*");
 
-  console.log(shipping_methods);
+
 
   return <Shipping shippingMethods={shipping_methods} />;
 };

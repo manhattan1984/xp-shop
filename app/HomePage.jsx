@@ -20,7 +20,7 @@ export default function HomePage({ product }) {
 
   return (
     <div className="">
-      <section className="flex flex-col justify-center items-center h-screen gap-4 text-center">
+      <section className="flex flex-col bg-black text-white justify-center items-center h-screen gap-4 text-center">
         <Image
           src="/floating-with-flacko.png"
           sizes="100%"
@@ -33,7 +33,7 @@ export default function HomePage({ product }) {
         </p>
         <p className="font-labrada_italic text-lg">you too can defy gravity</p>
       </section>
-      <section className="">
+      {/* <section className="">
         <div className=" w-full overflow-hidden h-full box-content">
           <div className="inline-flex gap-4 animate-slide_through text-black">
             {images.map((image, index) => (
@@ -41,9 +41,9 @@ export default function HomePage({ product }) {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="bg-white text-center">
-        <p className="text-3xl text-black">Featured Clothings</p>
+        <p className="text-3xl text-black py-4">Featured Clothings</p>
         <ProductList products={product} />
       </section>
     </div>

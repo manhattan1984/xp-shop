@@ -1,23 +1,27 @@
 import Link from "next/link";
 import React from "react";
 
-const Footer = () => {
+const Footer = ({ links }) => {
   return (
-    <div className=" w-11/12 mx-auto mt-2 uppercase text-xs py-2 lg:h-fit">
+    <div className="mt-2 uppercase text-xs py-2 lg:h-fit bg-black text-white w-full p-2">
       <div className="lg:flex gap-[32px]">
         <div className="flex-1">
           <p className="pt-8 border-b border-white pb-4 text-xs font-bold">
             Main Menu
           </p>
 
-          <div className="flex flex-col gap-2 mt-4">
-            <Link href="">Home</Link>
-            <Link href="">Shop All</Link>
-            {/* <Link href="">Apparel</Link>
-            <Link href="">Plushies</Link>
-            <Link href="">Accessories</Link>
-            <Link href="">Footwear</Link>
-            <Link href="">Mystery Items</Link> */}
+          <div className=" mt-4">
+            <ul className="flex flex-col gap-2">
+              {links.map(({ link, name }) => (
+                <Link
+                  className="uppercase hover:text-gray-300"
+                  href={link}
+                  key={name}
+                >
+                  {name}
+                </Link>
+              ))}
+            </ul>
           </div>
         </div>
         {/* <div className="flex-1">

@@ -1,9 +1,11 @@
 import supabase from "@/utils/supabase";
 import React from "react";
-import AllProducts from "./AllProducts";
+import ProductList from "../(components)/ProductList";
+
 
 const page = async () => {
-  return <AllProducts />;
+  let { data, error } = await supabase.from("product").select("*");
+  return <ProductList title="All Products" products={data} />;
 };
 
 export default page;

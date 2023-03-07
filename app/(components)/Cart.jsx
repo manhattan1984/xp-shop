@@ -45,7 +45,9 @@ const CartItem = ({ id, quantity }) => {
     async function getProduct() {
       let { data, error } = await supabase
         .from("product_item")
-        .select("*, product (name, id), variation_option_id (value)")
+        .select(
+          "*, product (name, id, product_image), variation_option_id (value)"
+        )
         .eq("id", id)
         .single();
 
@@ -57,8 +59,7 @@ const CartItem = ({ id, quantity }) => {
 
   if (product) {
     const {
-      product: { name, id: product_id },
-      product_image,
+      product: { name, id: product_id, product_image },
       price,
       variation_option_id: { value: size },
     } = product;
@@ -104,19 +105,20 @@ const Cart = () => {
 
   const router = useRouter();
 
-  const [serverProducts, setServerProducts] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   useEffect(() => {
     async function getProducts() {
-      let { data, error } = await supabase.rpc("get_random_products", {
-        number: 3,
-      });
+      let { data, error } = await supabase.rpc("get_random_products");
 
-      setServerProducts(data);
+      if (error) console.error(error);
+      else console.log(data);
+
+      setRecommendedProducts(data);
     }
 
     getProducts();
-  }, []);
+  }, [cartProducts]);
 
   useEffect(() => {
     getTotalCost();
@@ -172,23 +174,12 @@ const Cart = () => {
                 <CartItem {...item} key={index} />
               ))
             )}
-
-            <div className="bg-gray-50 mt-8 h-fit w-full">
-              <p className="text-center uppercase font-light pt-8">
-                you may also like
-              </p>
-              <div className="w-11/12 mx-auto">
-                {/* {serverProducts.map((item, index) => (
-                  <CartRecommendation key={index} {...item} />
-                ))} */}
-              </div>
-            </div>
           </div>
 
           <div className="w-full p-4">
             <div className="flex justify-between font-medium">
               <p>Subtotal ({cartProducts.length} item(s))</p>
-              <p>₦{total}</p>
+              <p>₦{cartProducts.length !== 0 ? total : 0}</p>
             </div>
 
             <button

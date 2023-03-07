@@ -7,7 +7,7 @@ const page = async () => {
     .from("payment_type")
     .select("*");
 
-  console.log(payment_types);
+
 
   return <Payment paymentTypes={payment_types} />;
 };

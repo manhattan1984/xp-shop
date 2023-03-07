@@ -11,7 +11,7 @@ const Header = ({ links }) => {
   const { setOpen } = useCart();
   const { menuOpen, setMenuOpen } = useMenu();
   return (
-    <nav className="top-0 z-20 flex justify-between p-2 fixed w-full shadow backdrop-blur-sm bg-black">
+    <nav className="top-0 z-20 flex justify-between p-2 fixed w-full shadow backdrop-blur-sm bg-black text-white">
       <FiMenu
         className="text-2xl cursor-pointer lg:hidden"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -31,7 +31,7 @@ const Header = ({ links }) => {
       <div className="lg:flex items-center hidden">
         <ul>
           {links.map(({ link, name }) => (
-            <Link className="uppercase mx-4 hover:text-gray-300" href={link}>
+            <Link key={name} className="uppercase mx-4 hover:text-gray-300" href={link}>
               {name}
             </Link>
           ))}

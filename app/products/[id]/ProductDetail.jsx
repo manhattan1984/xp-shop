@@ -56,7 +56,7 @@ const ProductDetail = ({ product, variation_options }) => {
 
               <div className="flex gap-4 py-4 font-gajraj">
                 {variation_options.map(({ id, value }) => (
-                  <div className="flex gap-1 items-center justify-center">
+                  <div key={id} className="flex gap-1 items-center justify-center">
                     <p className="uppercase p-[4px]">{value}</p>
                     <input
                       type="radio"

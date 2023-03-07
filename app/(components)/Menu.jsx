@@ -5,6 +5,7 @@ import { useMenu } from "../(context)/MenuContext";
 
 const Menu = ({ links }) => {
   const { menuOpen, setMenuOpen } = useMenu();
+  
   return (
     <div
       className={`ease-in-out duration-300 ${
