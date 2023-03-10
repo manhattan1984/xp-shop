@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import CarouselImage from "./(components)/CarouselImage";
+import PageWrapper from "./(components)/PageWrapper";
 import ProductList from "./(components)/ProductList";
 import { useCart } from "./(context)/CartContext";
 
@@ -19,7 +20,7 @@ export default function HomePage({ product }) {
   ];
 
   return (
-    <div className="">
+    <PageWrapper className="">
       <section className="flex flex-col bg-black text-white justify-center items-center h-screen gap-4 text-center">
         <Image
           src="/floating-with-flacko.png"
@@ -46,6 +47,6 @@ export default function HomePage({ product }) {
         <p className="text-3xl text-black py-4">Featured Clothings</p>
         <ProductList products={product} />
       </section>
-    </div>
+    </PageWrapper>
   );
 }

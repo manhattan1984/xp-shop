@@ -5,7 +5,7 @@ import ProductDetail from "./ProductDetail";
 const page = async ({ params: { id } }) => {
   let { data: product, error } = await supabase
     .from("product")
-    .select("*, product_item (*)")
+    .select("*, product_item (*), product_other_images!inner(product_image)")
     .eq("id", id)
     .single();
 

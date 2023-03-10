@@ -1,3 +1,4 @@
+import PageWrapper from "@/app/(components)/PageWrapper";
 import ProductList from "@/app/(components)/ProductList";
 import supabase from "@/utils/supabase";
 import React from "react";

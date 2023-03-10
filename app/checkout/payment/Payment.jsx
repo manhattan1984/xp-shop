@@ -14,10 +14,7 @@ const Payment = ({ paymentTypes }) => {
   const [userInfo] = useLocalStorage("userInfo", null);
   const [shippingMethod] = useLocalStorage("shippingMethod", null);
 
-
-
   if (!userInfo || !Object.values(userInfo).every((value) => value)) {
-
     redirect("/checkout");
   }
 
@@ -162,9 +159,7 @@ const Payment = ({ paymentTypes }) => {
 
     insertOrderToDatabase();
 
-    router.push("/checkout/success");
 
-    // insert user payment method
   };
 
   // you can call this function anything
@@ -237,7 +232,11 @@ const Payment = ({ paymentTypes }) => {
             toast("Online Payment");
             // insertOrderToDatabase();
             return;
+          } else {
+            insertOrderToDatabase();
           }
+          router.push("/checkout/success");
+
           toast("Other Payment Option");
         }}
         className="bg-black text-white p-4 w-full mt-2"
