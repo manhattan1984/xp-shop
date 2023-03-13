@@ -5,6 +5,7 @@ import { useCart } from "@/app/(context)/CartContext";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
+import { motion as m, AnimatePresence } from "framer-motion";
 
 const ProductDetail = ({ product, variation_options }) => {
   const {
@@ -23,6 +24,8 @@ const ProductDetail = ({ product, variation_options }) => {
   const [productItemId, setProductItemId] = useState();
   // const [first, setfirst] = useState(second)
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const variantRef = useRef();
 
   const handleVariantChange = (e) => {
@@ -40,7 +43,6 @@ const ProductDetail = ({ product, variation_options }) => {
     ({ product_image }) => product_image
   );
 
-  console.log(productImages);
   return (
     <PageWrapper>
       <Toaster />
@@ -54,18 +56,43 @@ const ProductDetail = ({ product, variation_options }) => {
             className="h-auto w-full md:w-2/3 "
           />
 
-          <div className="flex gap-2 justify-center mb-4">
-            {productImages.map((image) => (
-              <Image
-                src={image}
-                alt={name}
-                key={image}
-                height={60}
-                width={60}
-                className="border border-black"
-              />
-            ))}
-          </div>
+          <AnimatePresence>
+            <div className="flex gap-2 justify-center mb-4">
+              {productImages.map((image) => (
+                <m.div layoutId={image} onClick={() => setSelectedImage(image)}>
+                  <Image
+                    src={image}
+                    alt={name}
+                    key={image}
+                    height={60}
+                    width={60}
+                    className="border border-black"
+                  />
+                </m.div>
+              ))}
+            </div>
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {selectedImage && (
+              <m.div
+                layoutId={selectedImage}
+                className="fixed h-screen w-screen top-0 flex justify-center items-center backdrop-brightness-50"
+                onClick={() => {
+                  setSelectedImage(null);
+                }}
+              >
+                <Image
+                  src={selectedImage}
+                  alt={name}
+                  sizes="100%"
+                  className={`w-1/2 h-1/2 object-cover `}
+                  height={0}
+                  width={0}
+                />
+              </m.div>
+            )}
+          </AnimatePresence>
           <div className="">
             <p className="text-xs">Please Select A Size To Get The Price</p>
             <p className="font-light text-gray-600">₦{price}</p>
