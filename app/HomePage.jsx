@@ -11,7 +11,7 @@ export default function HomePage({ product }) {
     <PageWrapper className="">
       <section className="flex flex-col bg-red-600 text-white justify-center items-center gap-4 text-center">
         <Image
-          src="/floating-with-flacko.png"
+          src="https://smnxrunawxkkojkyomhc.supabase.co/storage/v1/object/public/products/floating-with-flacko.png"
           sizes="100%"
           height={0}
           width={0}
@@ -30,7 +30,7 @@ export default function HomePage({ product }) {
           something, you too can defy gravity under the influence of this
           garment.{" "}
         </p>
-        <p>
+        {/* <p>
           {" "}
           𝕱𝖑𝖔𝖆𝖙𝖎𝖓𝖌 𝖂𝖎𝖙𝖍 𝕱𝖑𝖆𝖈𝖐𝖔 𝔦𝔰 𝔞𝔫 𝔞𝔢𝔰𝔱𝔥𝔢𝔱𝔦𝔠 𝔞𝔯𝔱 𝔦𝔫𝔣𝔩𝔲𝔢𝔫𝔠𝔢𝔡 𝔰𝔱𝔯𝔢𝔢𝔱 𝔴𝔢𝔞𝔯
           𝔠𝔩𝔬𝔱𝔥𝔦𝔫𝔤 𝔩𝔦𝔫𝔢 & 𝔞𝔯𝔱 𝔟𝔯𝔞𝔫𝔡 𝕺𝖓 𝖆𝖓 𝖆𝖗𝖙𝖎𝖘𝖙𝖎𝖈 𝖙𝖆𝖐𝖊 𝖔𝖓 𝖘𝖊𝖑𝖋 𝖊𝖝𝖕𝖗𝖊𝖘𝖘𝖎𝖔𝖓
@@ -40,9 +40,12 @@ export default function HomePage({ product }) {
           𝔦𝔰 𝔦𝔫𝔣𝔲𝔰𝔢𝔡 𝔴𝔦𝔱𝔥 𝔰𝔲𝔟𝔩𝔦𝔪𝔦𝔫𝔞𝔩 𝔪𝔢𝔰𝔰𝔞𝔤𝔢𝔰 𝔞𝔫𝔡 𝔢𝔪𝔬𝔱𝔦𝔬𝔫𝔰 𝔦𝔱’𝔰 𝔱𝔥𝔢𝔯𝔞𝔭𝔶 𝔱𝔬 𝔪𝔢 &
           ℑ 𝔥𝔬𝔭𝔢 𝔦𝔱 𝔴𝔬𝔲𝔩𝔡 𝔟𝔢 𝔱𝔬 𝔶𝔬𝔲 𝔱𝔬𝔬.𝔊𝔢𝔱 𝔞𝔯𝔱 𝔱𝔥𝔞𝔱 𝔪𝔞𝔨𝔢𝔰 𝔶𝔬𝔲 𝔣𝔢𝔢𝔩 𝔰𝔬𝔪𝔢𝔱𝔥𝔦𝔫𝔤,
           𝔶𝔬𝔲 𝔱𝔬𝔬 𝔠𝔞𝔫 𝔡𝔢𝔣𝔶 𝔤𝔯𝔞𝔳𝔦𝔱𝔶 𝔲𝔫𝔡𝔢𝔯 𝔱𝔥𝔢 𝔦𝔫𝔣𝔩𝔲𝔢𝔫𝔠𝔢 𝔬𝔣 𝔱𝔥𝔦𝔰 𝔤𝔞𝔯𝔪𝔢𝔫𝔱.
-        </p>
+        </p> */}
 
-        <Link href="/products" className="bg-red-600 text-white p-2 mt-4 mx-auto">
+        <Link
+          href="/products"
+          className="bg-red-600 text-white p-2 mt-4 mx-auto"
+        >
           SHOP NOW
         </Link>
       </section>

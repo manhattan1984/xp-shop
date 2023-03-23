@@ -167,9 +167,9 @@ const ProductDetail = ({
         </div>
 
         <div className="">
-          <p className="text-gray-500 uppercase text-sm font-gajraj">
+          {/* <p className="text-gray-500 uppercase text-sm font-gajraj">
             related products
-          </p>
+          </p> */}
         </div>
       </div>
     </PageWrapper>
