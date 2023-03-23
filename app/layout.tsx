@@ -49,7 +49,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${gajraj.variable} ${labrada.variable} ${labradaItalic.variable} dark`}
+      className={`${gajraj.variable} ${labrada.variable} ${labradaItalic.variable}`}
     >
       {/*
         <head /> will contain the components returned by the nearest parent

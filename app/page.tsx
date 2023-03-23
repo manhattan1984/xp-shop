@@ -7,11 +7,7 @@ const page = async () => {
 
   let { data: product, error } = await supabase
     .from("product")
-    .select(
-      `name, product_image, id`)
-    .neq("category_id", 2);
-
-
+    .select(`name, product_image, id, product_item!inner(price)`).eq('featured', true);
 
   return <HomePage product={product} />;
 };

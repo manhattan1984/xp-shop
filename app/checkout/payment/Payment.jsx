@@ -14,6 +14,8 @@ const Payment = ({ paymentTypes }) => {
   const [userInfo] = useLocalStorage("userInfo", null);
   const [shippingMethod] = useLocalStorage("shippingMethod", null);
 
+  const [handlingPayment, setHandlingPayment] = useState(false);
+
   if (!userInfo || !Object.values(userInfo).every((value) => value)) {
     redirect("/checkout");
   }
@@ -156,16 +158,14 @@ const Payment = ({ paymentTypes }) => {
   const onSuccess = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
     console.log(reference);
-
-    insertOrderToDatabase();
-
-
+    insertOrderToDatabase().then(() => router.push("/checkout/success"));
   };
 
   // you can call this function anything
   const onClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
     console.log("closed");
+    setHandlingPayment(false);
   };
 
   const initializePayment = usePaystackPayment(config);
@@ -208,7 +208,7 @@ const Payment = ({ paymentTypes }) => {
         </div>
       </div>
 
-      {paymentTypes.map(({ id, value }) => (
+      {/* {paymentTypes.map(({ id, value }) => (
         <div key={id} className="border p-4 mt-4">
           <div className="flex gap-2">
             <input
@@ -223,24 +223,15 @@ const Payment = ({ paymentTypes }) => {
             <div className="">{value}</div>
           </div>
         </div>
-      ))}
+      ))} */}
 
       <button
         onClick={async () => {
-          if (paymentType === 1) {
-            initializePayment(onSuccess, onClose);
-            toast("Online Payment");
-            // insertOrderToDatabase();
-            return;
-          } else {
-            insertOrderToDatabase();
-          }
-          router.push("/checkout/success");
-
-          toast("Other Payment Option");
+          setHandlingPayment(true);
+          initializePayment(onSuccess, onClose);
         }}
-        className="bg-black text-white p-4 w-full mt-2"
-        disabled={!paymentType}
+        disabled={handlingPayment}
+        className="bg-red-600 text-white p-4 w-full mt-2"
       >
         Pay Now
       </button>

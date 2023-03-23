@@ -139,7 +139,7 @@ const Checkout = () => {
           }
           toast.error("Please Fill Form Completely");
         }}
-        className="w-full p-2 bg-black text-white mt-4"
+        className="w-full p-2 bg-red-600 text-white mt-4"
       >
         Continue to shipping
       </button>

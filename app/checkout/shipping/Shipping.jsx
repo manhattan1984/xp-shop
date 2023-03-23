@@ -91,7 +91,7 @@ const Shipping = ({ shippingMethods }) => {
 
         <button
           onClick={() => router.push("/checkout/payment")}
-          className="w-full bg-black text-white p-4 rounded mt-4"
+          className="w-full bg-red-600 text-white p-4 rounded mt-4"
           disabled={!shippingMethod}
         >
           Continue To Payment

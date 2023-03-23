@@ -164,7 +164,7 @@ const Cart = () => {
                     router.push("/products");
                     setOpen(false);
                   }}
-                  className="w-full bg-black text-white p-2"
+                  className="w-full bg-red-600 text-white p-2"
                 >
                   Shop Now
                 </button>
@@ -191,7 +191,7 @@ const Cart = () => {
                 }
                 toast("Your Cart Is Empty, Add Items To Check Out");
               }}
-              className="w-full bg-black text-white p-2"
+              className="w-full bg-red-600 text-white p-2"
             >
               Checkout
             </button>

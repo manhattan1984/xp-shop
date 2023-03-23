@@ -11,7 +11,7 @@ const Header = ({ links }) => {
   const { setOpen } = useCart();
   const { menuOpen, setMenuOpen } = useMenu();
   return (
-    <nav className="top-0 z-20 flex justify-between p-2 fixed w-full shadow backdrop-blur-sm bg-black text-white">
+    <nav className="top-0 z-20 flex justify-between p-2 fixed w-full backdrop-blur-sm bg-red-600 text-white">
       <FiMenu
         className="text-2xl cursor-pointer lg:hidden"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -19,7 +19,7 @@ const Header = ({ links }) => {
       <Link href="/" className={"text-md uppercase font-gajraj"}>
         <div className="flex items-center gap-4">
           
-          <p className="">Floating With Flacko</p>
+          <p className="">𝕱𝖑𝖔𝖆𝖙𝖎𝖓𝖌 𝖂𝖎𝖙𝖍 𝕱𝖑𝖆𝖈𝖐𝖔</p>
         </div>
       </Link>
       <AiOutlineShoppingCart

@@ -10,7 +10,7 @@ const page = async ({
 }) => {
   const { data, error } = await supabase
     .from("product")
-    .select("*, product_category!inner(*)")
+    .select("*, product_category!inner(*), product_item!inner(price)")
     .eq("product_category.category_name", category_name);
 
   return <ProductList title={category_name + "s"} products={data} />;

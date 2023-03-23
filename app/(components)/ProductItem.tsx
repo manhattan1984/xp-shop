@@ -4,7 +4,25 @@ import Link from "next/link";
 import React from "react";
 import { motion as m } from "framer-motion";
 
-const ProductItem = ({ name, product_image, id, key }) => {
+const ProductItem = ({
+  name,
+  product_image,
+  id,
+  key,
+  product_item,
+}: {
+  name: string;
+  product_image: string;
+  id: number;
+  key: number;
+  product_item: {
+    price: number;
+  }[];
+}) => {
+  const prices = product_item.map(({ price }) => price).sort();
+  const maxPrice = Math.max(...prices);
+  const minPrice = Math.min(...prices);
+  console.log("prices", maxPrice, minPrice);
   return (
     <Link
       className="text-center w-full basis-1/3 md:basis-1/4"
@@ -26,6 +44,9 @@ const ProductItem = ({ name, product_image, id, key }) => {
 
         <p className="font-light tracking-widest text-sm font-gajraj text-red-500">
           {name}
+        </p>
+        <p className="text-gray-700">
+        ₦{minPrice} - {maxPrice}
         </p>
       </m.div>
     </Link>

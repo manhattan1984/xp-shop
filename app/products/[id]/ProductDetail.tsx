@@ -7,39 +7,57 @@ import React, { useRef, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { motion as m, AnimatePresence } from "framer-motion";
 
-const ProductDetail = ({ product, variation_options }) => {
-  const {
+const ProductDetail = ({
+  product: {
     name,
+    description,
     product_image,
     product_item,
-    description,
-    product_other_images,
-  } = product;
-
+    product_other_images: product_images,
+  },
+}: {
+  product: {
+    name: string;
+    description: string;
+    product_image: string;
+    product_item: {
+      id: number;
+      price: number;
+      variation_option: {
+        value: string;
+        id: number;
+      };
+      variation_option_id: number;
+    }[];
+    product_other_images: {
+      product_image: string;
+    }[];
+  };
+}) => {
   const { serverProducts } = useCart();
   let related = serverProducts?.slice(0, 4);
   const { addOneToCart, removeOneFromCart, setOpen } = useCart();
 
   const [price, setPrice] = useState();
   const [productItemId, setProductItemId] = useState();
-  // const [first, setfirst] = useState(second)
 
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const variantRef = useRef();
+  const variantRef = useRef<HTMLInputElement>();
 
-  const handleVariantChange = (e) => {
-    const variant = +e.target.value;
+  const handleVariantChange = (e: { target: { value: string | number } }) => {
+    const variantOption: number = +e.target.value;
 
+    // @ts-ignore
     const { price, id } = product_item.find(
-      ({ variation_option_id }) => variation_option_id === variant
+      ({ variation_option: { id } }) => id === variantOption
     );
 
     setPrice(price);
     setProductItemId(id);
   };
 
-  const productImages = product_other_images.map(
+  const productImages = product_images.map(
     ({ product_image }) => product_image
   );
 
@@ -49,6 +67,7 @@ const ProductDetail = ({ product, variation_options }) => {
       <div className="bg-white text-black text-center py-4">
         <div className="md:flex py-4 items-center">
           <Image
+            alt={name}
             src={product_image}
             height={0}
             width={0}
@@ -59,6 +78,7 @@ const ProductDetail = ({ product, variation_options }) => {
           <AnimatePresence>
             <div className="flex gap-2 justify-center mb-4">
               {productImages.map((image) => (
+                // @ts-ignore
                 <m.div layoutId={image} onClick={() => setSelectedImage(image)}>
                   <Image
                     src={image}
@@ -104,7 +124,7 @@ const ProductDetail = ({ product, variation_options }) => {
               <p className="text-md uppercase">size</p>
 
               <div className="flex gap-4 py-4 font-gajraj">
-                {variation_options.map(({ id, value }) => (
+                {product_item.map(({ variation_option: { value, id } }) => (
                   <div
                     key={id}
                     className="flex gap-1 items-center justify-center"
@@ -117,6 +137,7 @@ const ProductDetail = ({ product, variation_options }) => {
                       value={id}
                       onChange={handleVariantChange}
                       key={id}
+                      // @ts-ignore
                       ref={variantRef}
                     />
                   </div>
@@ -149,8 +170,6 @@ const ProductDetail = ({ product, variation_options }) => {
           <p className="text-gray-500 uppercase text-sm font-gajraj">
             related products
           </p>
-
-          <ProductList products={related} />
         </div>
       </div>
     </PageWrapper>
