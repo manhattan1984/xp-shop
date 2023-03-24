@@ -94,7 +94,7 @@ const CartItem = ({ id, quantity }) => {
             onClick={() => deleteFromCart(id)}
             className="cursor-pointer text-gray-500"
           />
-          <p className="text-xs text-gray-500 mt-4">${price}</p>
+          <p className="text-xs text-gray-500 mt-4">₦{price}</p>
         </div>
       </div>
     );
