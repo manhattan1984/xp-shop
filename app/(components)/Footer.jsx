@@ -18,7 +18,7 @@ const Footer = ({ links }) => {
           method: "POST",
           body: JSON.stringify({ email }),
         });
-        console.log("res", res);
+
         const { status } = res;
         if (status == 200) {
           toast(`You've been added to our newsletter`);

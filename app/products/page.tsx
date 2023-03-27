@@ -5,7 +5,6 @@ import ProductList from "../(components)/ProductList";
 
 const page = async () => {
   let { data, error } = await supabase.from("product").select("*, product_item!inner(price)");
-  console.log(data)
   return <ProductList title="All Products" products={data} />;
 };
 

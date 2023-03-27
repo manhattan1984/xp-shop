@@ -22,22 +22,20 @@ const ProductItem = ({
   const prices = product_item.map(({ price }) => price).sort();
   const maxPrice = Math.max(...prices);
   const minPrice = Math.min(...prices);
-  console.log("prices", maxPrice, minPrice);
+
   return (
-    <Link
-      className="text-center w-full basis-1/3 md:basis-1/4 flex-1"
-      href={`/products/${id}`}
+    <m.div
+      className="text-center basis-1/2 md:basis-1/3"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0, transition: { delay: 1 * +key } }}
     >
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0, transition: { delay: 1 * +key } }}
-      >
+      <Link href={`/products/${id}`}>
         <Image
           alt={name}
           height={0}
           width={0}
           sizes="100vw"
-          className="h-auto w-full object-center"
+          className="h-auto w-1/2 mx-auto object-center"
           src={product_image}
           priority={true}
         />
@@ -46,10 +44,10 @@ const ProductItem = ({
           {name}
         </p>
         <p className="text-gray-700">
-        ₦{minPrice} - {maxPrice}
+          ₦{minPrice} - {maxPrice}
         </p>
-      </m.div>
-    </Link>
+      </Link>
+    </m.div>
   );
 };
 

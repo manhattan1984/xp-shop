@@ -60,9 +60,7 @@ const Payment = ({ paymentTypes }) => {
 
     const userPaymentId = userPaymentData[0].id;
 
-    console.log(
-      `Insert User Payment \n data: ${userPaymentData}, error: ${userPaymentError}`
-    );
+    
 
     // Insert Shipping Address
 
@@ -85,9 +83,6 @@ const Payment = ({ paymentTypes }) => {
 
     const shippingAddressId = shippingAddressData[0].id;
 
-    console.log(
-      `Insert Shipping Address \n data: ${shippingAddressData}, error: ${shippingAddressError}`
-    );
 
     // Insert Shop Order
     const { data: shopOrderData, error: shopOrderError } = await supabase
@@ -106,9 +101,7 @@ const Payment = ({ paymentTypes }) => {
 
     const shopOrderDataId = shopOrderData[0].id;
 
-    console.log(
-      `Insert Shop Order \n data: ${shopOrderData}, error: ${shopOrderError}`
-    );
+   
 
     const getProductPrice = async (id) => {
       let {
@@ -120,7 +113,6 @@ const Payment = ({ paymentTypes }) => {
         .eq("id", id)
         .single();
 
-      console.log(`Get Product Price \n data: ${price}, error: ${error}`);
 
       if (price) {
         return price;
@@ -147,9 +139,7 @@ const Payment = ({ paymentTypes }) => {
         orderLines
       );
 
-    console.log(
-      `Insert Order Line \n data: ${orderLineData}, error: ${orderLineError}`
-    );
+   
 
     setCartProducts([]);
   };

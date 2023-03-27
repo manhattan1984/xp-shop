@@ -9,7 +9,7 @@ const page = async ({ params: { id } }) => {
     .eq("id", +id)
     .single();
 
-  console.log("product", product);
+
 
   if (product) {
     return <ProductDetail product={product} />;
