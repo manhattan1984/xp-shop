@@ -25,7 +25,7 @@ const ProductItem = ({
   console.log("prices", maxPrice, minPrice);
   return (
     <Link
-      className="text-center w-full basis-1/3 md:basis-1/4"
+      className="text-center w-full basis-1/3 md:basis-1/4 flex-1"
       href={`/products/${id}`}
     >
       <m.div
@@ -37,7 +37,7 @@ const ProductItem = ({
           height={0}
           width={0}
           sizes="100vw"
-          className="h-auto w-full"
+          className="h-auto w-full object-center"
           src={product_image}
           priority={true}
         />

@@ -9,6 +9,8 @@ import localFont from "@next/font/local";
 import supabase from "@/utils/supabase";
 // import { Labra } from "@next/font/google";
 
+export const revalidate = 0;
+
 const gajraj = localFont({
   src: "../public/GajrajOne-Regular.ttf",
   display: "swap",
