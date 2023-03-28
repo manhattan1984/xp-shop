@@ -9,15 +9,15 @@ import { useCart } from "./(context)/CartContext";
 export default function HomePage({ product }) {
   return (
     <PageWrapper className="">
-      <section className="flex flex-col bg-red-600 text-white justify-center items-center gap-4 text-center">
+      <div >
         <Image
           src="https://smnxrunawxkkojkyomhc.supabase.co/storage/v1/object/public/products/floating-with-flacko.png"
           sizes="100%"
           height={0}
           width={0}
-          className="w-full h-auto object-cover"
+          className="w-full h-screen object-contain bg-[#ea2225]"
         />
-      </section>
+      </div>
       <section className="text-center my-4 mx-2 flex flex-col gap-3 max-w-lg md:mx-auto">
         <p className="text-3xl">𝕱𝖑𝖔𝖆𝖙𝖎𝖓𝖌 𝖂𝖎𝖙𝖍 𝕱𝖑𝖆𝖈𝖐𝖔</p>
         <p>
