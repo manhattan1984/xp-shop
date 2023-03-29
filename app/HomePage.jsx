@@ -15,7 +15,7 @@ export default function HomePage({ product }) {
           sizes="100%"
           height={0}
           width={0}
-          className="w-full h-screen object-contain bg-[#ea2225]"
+          className="w-full h-[40vh] md:h-screen object-contain bg-[#ea2225]"
         />
       </div>
       <section className="text-center my-4 mx-2 flex flex-col gap-3 max-w-lg md:mx-auto">

@@ -45,7 +45,7 @@ const Payment = ({ paymentTypes }) => {
     reference: new Date().getTime().toString(),
     email,
     amount: total * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey: "pk_test_8ab96aede07a683eeaf39e8a68aa3b6e7aec0f72",
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
   };
 
   const insertOrderToDatabase = async () => {

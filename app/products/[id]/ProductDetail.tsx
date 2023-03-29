@@ -86,7 +86,7 @@ const ProductDetail = ({
                     key={image}
                     height={60}
                     width={60}
-                    className="border border-black"
+                    className="border border-black m-2"
                   />
                 </m.div>
               ))}
