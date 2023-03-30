@@ -8,12 +8,15 @@ const page = async ({
 }: {
   params: { category_name: string };
 }) => {
+  const category = category_name.replace('%20', ' ')
   const { data, error } = await supabase
     .from("product")
     .select("*, product_category!inner(*), product_item!inner(price)")
-    .eq("product_category.category_name", category_name);
+    .eq("product_category.category_name", category);
 
-  return <ProductList title={category_name + "s"} products={data} />;
+    console.log()
+
+  return <ProductList title={category + "s"} products={data} />;
 };
 
 export default page;
