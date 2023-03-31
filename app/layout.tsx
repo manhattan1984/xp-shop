@@ -34,10 +34,11 @@ export default async function RootLayout({
 }) {
   let { data: product_category, error } = await supabase
     .from("product_category")
-    .select("*");
+    .select("*")
+    .order("category_name", { ascending: false });
 
   const categoryPages = product_category?.map(({ category_name }) => ({
-    name: category_name + "s",
+    name: category_name,
     link: `/products/category/${category_name}`,
   }));
 
