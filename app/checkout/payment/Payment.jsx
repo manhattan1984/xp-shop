@@ -194,7 +194,7 @@ const Payment = ({ paymentTypes }) => {
           <div className="flex justify-between">
             <p className="text-gray-500">Method</p>
           </div>
-          <p>Courier - Duties and Taxes included · ${total}</p>
+          <p>Courier - Duties and Taxes included · ₦{total}</p>
         </div>
       </div>
 
